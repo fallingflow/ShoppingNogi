@@ -1,0 +1,268 @@
+@font-face {
+    font-family: 'MabinogiClassicR';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/MabinogiClassicR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    margin: 0;
+    padding: 0;
+    display:flex;
+    flex-direction: column;
+}
+
+/* Header */
+#header{
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    justify-content:space-between;
+
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+
+    padding: 0 10px;
+
+    color: #fff;
+    background-color:#2e3033;
+}
+
+#header svg{
+    padding-bottom: 2px;
+}
+
+#header-left{
+    display:flex;
+    justify-content: flex-start;
+}
+
+#header-right{
+    display: none;
+    /*display:flex;*/
+    justify-content: flex-end;
+}
+#header-left-title{
+    padding: 0 8px 0 0;
+    border-radius: 5px;
+}
+#header-left-title:hover{
+    background-color: #444;
+}
+
+.header-submenu {
+    margin: auto 0;
+}
+
+/* Navigator */
+#navigator{
+    width: 170px;
+
+    display:flex;
+    flex-direction: column;
+
+    position: fixed;
+    top: 70px;
+    left: 20px;
+
+
+    color: #fff;
+
+    border-radius: 5px;
+    border: 1px solid #444;
+    background-color: #1c1d1f;
+}
+
+#navigator-top{
+    margin: 5px auto 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#navigator-bottom{
+    position: relative;
+    bottom: 5px;
+
+    display:none;
+    margin: auto auto 0;
+}
+.navigator-submenu{
+    display: flex;
+    align-items: center;
+    width: 160px;
+    height: 40px;
+    text-align: left;
+
+    margin-bottom: 5px;
+}
+.navigator-submenu svg{
+    margin-right: 5px;
+}
+.navigator-submenu form{
+    display: flex;
+    align-items: center;
+}
+
+.navigator-submenu-text{
+    font-size: 12px;
+    padding-right: 5px;
+}
+
+#search{
+    display: block;
+    height: 30px;
+    margin: 12px 0 0 5px;
+    width:  120px;
+}
+
+.submenu{
+    border-radius: 5px;
+    padding: 0 4px;
+}
+.submenu:hover{
+    background-color: #666;
+    /*background-color: #48484B;*/
+}
+.submenu svg{
+    margin: 10px 5px;
+}
+
+/* container */
+#container{
+    width: 100%;
+    display: flex;
+
+    margin-top: 40px;
+    background-color: #000;
+
+    flex: 1;
+    flex-direction:column;
+}
+
+/* content */
+#content{
+    flex:1;
+
+    height: 100%;
+    width: 980px;
+
+    margin: 30px auto;
+    padding: 40px;
+
+    border-radius: 5px;
+    border: 1px solid #444;
+    background-color: #1c1d1f;
+
+    font-family:'MabinogiClassicR';
+
+}
+
+#item-list-title-container{
+    color: #fff;
+    font-size: 20px;
+    margin: 0px auto 20px;
+    text-align: center;
+}
+
+#item-list-title{
+    padding: 5px;
+    background-color: #2e3033;
+    border-radius: 5px;
+}
+
+#content table{
+    height: 100px;
+    width: 900px;
+
+    color: #fff;
+
+    border-collapse: collapse;
+    margin: 0 auto 40px;
+}
+
+#content th, td{
+    border-bottom: 1px solid #444;
+    padding: 15px 0 12px;
+
+    text-align:center;
+}
+
+#content td button{
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+}
+
+/* paging */
+#paging{
+    display: inline;
+}
+
+.paging-btn svg{
+    padding-bottom: 3px;
+}
+
+#paging li{
+    display: inline;
+
+}
+
+#paging li a{
+    color: #F09319;
+    padding: 0 5px;
+    text-decoration: none;
+}
+
+#page-current{
+    background-color: #F09319;
+}
+
+/* Detailed tooltip */
+fieldset{
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 0 7px 7px;
+    margin-top: 17px;
+}
+.item-option-legend{
+    display: inline;
+    position: relative;
+    top: -10px;
+    left: 0px;
+    padding: 3px;
+    background-color: #000;
+    color: #F09319;
+    z-index: 1000;
+}
+.item-option-content{
+}
+
+/* footer */
+#footer{
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    justify-content:space-between;
+
+    padding: 0 10px;
+
+    color: #fff;
+    background-color:#2e3033;
+    border: 1px solid #444;
+}
+
+#footer-content{
+    width:980px;
+    margin: auto;
+
+    background-color:#0dcaf0;
+}
