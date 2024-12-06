@@ -1,0 +1,14 @@
+{
+  "name": "shoppingnogi",
+  "version": "1.0.0",
+  "description": "Market viewer for 'Mabinogi' (NEXON MMORPG game)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
