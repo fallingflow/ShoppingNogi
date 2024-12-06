@@ -24,17 +24,9 @@ function getSalesDataByName(name, cursor=null, paging=0){
             if(paging < 2 && res['cursor'] != null){
                 getSalesDataByName(name, res['cursor'], ++paging)
             }else {
-                let infos = getItemDetailInfo(items);
+                let infos = getItemSaleDetailInfo(items);
 
                 console.log(infos)
-
-                document.getElementById('paging').innerHTML = ""
-
-                let pagination = new Pagination(infos, 20);
-                pagination.renderPagination(1);
-                pagination.drawTable(1);
-
-
                 return infos
             }
         }
@@ -43,15 +35,15 @@ function getSalesDataByName(name, cursor=null, paging=0){
 
 function getItemSaleDetailInfo(itemsArray){
     let itemInfos = []
-    itemArray.forEach(i => {
+    itemsArray.forEach(i => {
         i.forEach(item => {
             itemInfos.push({
-
-                "item_name": item['item_name'],
-                "item_display_name": item['item_display_name'],
-                "item_count": item['item_count'],
+                "auction_buy_id": item['auction_buy_id'],
                 "auction_price_per_unit": item['auction_price_per_unit'],
-                "date_auction_expire": item['date_auction_expire'],
+                "date_auction_buy": item['date_auction_buy'],
+                "item_count": item['item_count'],
+                "item_display_name": item['item_display_name'],
+                "item_name": item['item_name'],
                 "item_option": item['item_option']
             })
         })
