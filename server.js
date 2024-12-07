@@ -27,28 +27,28 @@ app.get('/', function(req, res){
     res.sendFile('/templates/main.html', {root: __dirname})
 })
 
-app.get('/sales', function(req, res){
+app.get('/sales/:name', function(req, res){
     res.sendFile('/templates/sales.html', {root: __dirname})
 })
 
-app.get('/sales/name/:name', async(req, res) => {
-    try{
-        const name = req.params.name;
-        const url = `https://open.api.nexon.com/mabinogi/v1/auction/history?item_name=${name}`
-        console.log("Request URL: ", url);
-        const response = await axios.get(url, {
-            headers:{
-                "x-nxopen-api-key": APIKEY
-            } // Key 값을 넣은 커스텀 헤더를 요청에 추가합니다.
-        });
-
-        console.log(response.data);
-        res.send(response.data);
-
-    }catch(error){
-        console.log("Error: ", error.message);
-    }
-})
+// app.get('/sales/:name', async(req, res) => {
+//     try{
+//         const name = req.params.name;
+//         const url = `https://open.api.nexon.com/mabinogi/v1/auction/history?item_name=${name}`
+//         console.log("Request URL: ", url);
+//         const response = await axios.get(url, {
+//             headers:{
+//                 "x-nxopen-api-key": APIKEY
+//             } // Key 값을 넣은 커스텀 헤더를 요청에 추가합니다.
+//         });
+//
+//         console.log(response.data);
+//         res.send(response.data);
+//
+//     }catch(error){
+//         console.log("Error: ", error.message);
+//     }
+// })
 
 async function fetchAndStoreAuctionHistory(category) {
     try {
@@ -163,7 +163,6 @@ app.get('/api/sales/:name', async (req, res) => {
             [req.params.name]
         );
 
-        // TODO: 아이템 판매 날짜도 포함하여 전송
         const result = results.reduce((acc, item) => {
             let existingItem = acc.find(i => i.item_id === item.item_id);
             if (!existingItem) {

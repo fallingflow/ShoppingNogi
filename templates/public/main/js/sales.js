@@ -1,34 +1,23 @@
-URL = 'https://open.api.nexon.com/mabinogi/v1/auction/history'
-APIKEY = 'test_3aea5b595556584ab54c0245a7e2a9ea6147d1642ba5988c6308cf189a253d7cefe8d04e6d233bd35cf2fabdeb93fb0d'
+import {Pagination} from "./info.js";
 
-function getSalesDataByCategory(){
-    return 0
-}
+URL = '/api/sales'
 
+let items = []
+function getSalesDataByName(){
+    let name = window.location.pathname;
+    name = name.replace('/sales/', '')
 
-items = []
-function getSalesDataByName(name, cursor=null, paging=0){
-    requestURL = URL + '?item_name=' + name
+    const requestURL = URL + '/' + name
 
-    if(cursor != null){
-        url += '&cursor=' + cursor
-    }
     $.ajax({
         method: "GET",
         url: requestURL,
-        beforeSend: function(xhr){
-            xhr.setRequestHeader("x-nxopen-api-key", APIKEY)
-        },
         success: function(res){
-            items.push(res['auction_history']);
-            if(paging < 2 && res['cursor'] != null){
-                getSalesDataByName(name, res['cursor'], ++paging)
-            }else {
-                let infos = getItemSaleDetailInfo(items);
+            console.log(res)
 
-                console.log(infos)
-                return infos
-            }
+            let pagination = new Pagination(res, 20);
+            pagination.renderPagination(1);
+            pagination.drawTable(1);
         }
     })
 }

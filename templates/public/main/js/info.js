@@ -1,4 +1,4 @@
-class Pagination {
+export class Pagination {
     constructor(data, itemsPerPage){
         this.data = data;
         this.totalCount = data.length;
@@ -676,15 +676,20 @@ class Pagination {
                 span.style.textShadow = '0 0 5px #69889C';
             }
             td.style.width='250px'
+            td.style.cursor='pointer'
+            td.addEventListener('click', function(){
+                window.open('sales/'+item['item_name'])
+            })
             td.appendChild(span)
-
             span.style.display = 'block'
-
             tr.appendChild(td)
+
         }
     }
-}
+    drawTablePrice(item){
 
+    }
+}
 
 let items = []
 function getDataByCategory(category, address, apikey, cursor = null, paging = 0) {
