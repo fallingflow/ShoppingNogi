@@ -148,7 +148,7 @@ async function fetchAndStoreAuctionHistory(category) {
 }
 
 // 1시간마다 데이터베이스 업데이트
-// setInterval(fetchAuctionHistoryAllCategory, 3600000);
+setInterval(fetchAuctionHistoryAllCategory, 3600000);
 
 function fetchAuctionHistoryAllCategory(){
     const category = ['한손 장비', '양손 장비','검','도끼','둔기','랜스','핸들','너클','체인 블레이드','활','석궁','듀얼건','수리검','원거리 소모품','실린더','스태프','원드','마도서','오브','중갑옷','경갑옷','천옷','장갑','신발','모자/가발','방패','로브','얼굴 장식','액세서리','날개','꼬리','악기','생활 도구','에코스톤','인챈트 스크롤','뷰티 쿠폰']
@@ -157,7 +157,7 @@ function fetchAuctionHistoryAllCategory(){
     }
 }
 
-// fetchAuctionHistoryAllCategory()
+fetchAuctionHistoryAllCategory()
 
 
 /******************************************************/
