@@ -154,10 +154,16 @@ app.get('/api/sales/:name', async (req, res) => {
     try {
         const connection = await mysql.createConnection(dbConfig);
         const [results] = await connection.execute(
-            'SELECT * FROM item JOIN item_option ON item.item_id = item_option.item_id WHERE item.item_name = ?',
+            `SELECT item.*, item_option.*, auction_history.date_auction_buy, auction_history_desc.auction_price_per_unit, auction_history_desc.item_count
+             FROM item
+             JOIN item_option ON item.item_id = item_option.item_id
+             JOIN auction_history_desc ON item.item_id = auction_history_desc.item_id
+             JOIN auction_history ON auction_history_desc.auction_buy_id = auction_history.auction_buy_id
+             WHERE item.item_name = ?`,
             [req.params.name]
         );
 
+        // TODO: 아이템 판매 날짜도 포함하여 전송
         const result = results.reduce((acc, item) => {
             let existingItem = acc.find(i => i.item_id === item.item_id);
             if (!existingItem) {
@@ -166,6 +172,9 @@ app.get('/api/sales/:name', async (req, res) => {
                     category_id: item.category_id,
                     item_name: item.item_name,
                     item_display_name: item.item_display_name,
+                    date_auction_buy: item.date_auction_buy,
+                    auction_price_per_unit: item.auction_price_per_unit,
+                    item_count: item.item_count,
                     item_option: []
                 };
                 acc.push(existingItem);
