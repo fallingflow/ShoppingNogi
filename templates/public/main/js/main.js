@@ -7,5 +7,7 @@ let searchItemURL = 'https://open.api.nexon.com/mabinogi/v1/auction/list'
 $(document).ready(function () {
 
     searchItemList(searchItemURL, APIKEY)
+
+
 });
 

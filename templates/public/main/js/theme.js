@@ -60,4 +60,7 @@ $(document).ready(function () {
     $('#navigator-theme').click(function(){
         changeTheme()
     })
+    $('#header-left-title').click(function(){
+        window.location.href = '/'
+    })
 })

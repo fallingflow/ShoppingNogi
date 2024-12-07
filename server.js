@@ -52,14 +52,25 @@ app.get('/sales/:name', function(req, res){
 
 async function fetchAndStoreAuctionHistory(category) {
     try {
-        // Connect to the database
         const connection = await mysql.createConnection(dbConfig);
+
+        // item_option의 row수를 확인하고 10만개를 넘어가면 데이터베이스 초기화
+        const [rowCount] = await connection.execute('SELECT COUNT(*) AS count FROM item_option');
+        if (rowCount[0].count > 100000) {
+            // If the row count exceeds 100000, reset the database
+            await connection.execute('DELETE FROM item_option');
+            await connection.execute('DELETE FROM auction_history_desc');
+            await connection.execute('DELETE FROM auction_history');
+            await connection.execute('DELETE FROM item');
+            await connection.execute('DELETE FROM category');
+            console.log('Database reset due to item_option row count exceeding 100000');
+        }
 
         // Fetch data from the API (no parameters needed)
         const response = await axios.get('https://open.api.nexon.com/mabinogi/v1/auction/history?auction_item_category='+category, {
             headers:{
                 "x-nxopen-api-key": APIKEY
-            } // Key 값을 넣은 커스텀 헤더를 요청에 추가합니다.
+            }
         });
 
         // category: category_name 중복확인 O, id는 자동증가
@@ -136,8 +147,8 @@ async function fetchAndStoreAuctionHistory(category) {
     }
 }
 
-// Schedule the function to run every hour
-// setInterval(fetchAuctionHistoryAllCategory, 3600000); // Every 1 hour in milliseconds
+// 1시간마다 데이터베이스 업데이트
+// setInterval(fetchAuctionHistoryAllCategory, 3600000);
 
 function fetchAuctionHistoryAllCategory(){
     const category = ['한손 장비', '양손 장비','검','도끼','둔기','랜스','핸들','너클','체인 블레이드','활','석궁','듀얼건','수리검','원거리 소모품','실린더','스태프','원드','마도서','오브','중갑옷','경갑옷','천옷','장갑','신발','모자/가발','방패','로브','얼굴 장식','액세서리','날개','꼬리','악기','생활 도구','에코스톤','인챈트 스크롤','뷰티 쿠폰']
@@ -159,7 +170,8 @@ app.get('/api/sales/:name', async (req, res) => {
              JOIN item_option ON item.item_id = item_option.item_id
              JOIN auction_history_desc ON item.item_id = auction_history_desc.item_id
              JOIN auction_history ON auction_history_desc.auction_buy_id = auction_history.auction_buy_id
-             WHERE item.item_name = ?`,
+             WHERE item.item_name = ?
+             ORDER BY auction_history.date_auction_buy DESC`,
             [req.params.name]
         );
 

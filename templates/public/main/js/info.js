@@ -6,6 +6,7 @@ export class Pagination {
         this.itemsPerPage = itemsPerPage;
         this.totalPage = Math.ceil(data.length / itemsPerPage);
         this.pageGroupNum = 10
+        this.isAscending = true;
 
     }
 
@@ -105,18 +106,52 @@ export class Pagination {
 
         th = document.createElement('th')
         th.innerText = '아이템명'
+        th.id = 'item-list-header-name'
         tr.appendChild(th)
 
         th = document.createElement('th')
         th.innerText = '시간'
+        th.id = 'item-list-header-time'
+
+        th.addEventListener('click', () => {
+            this.data.sort((a, b) => {
+                if (this.isAscending) {
+                    return new Date(b.date_auction_expire) - new Date(a.date_auction_expire);
+                } else {
+                    return new Date(a.date_auction_expire) - new Date(b.date_auction_expire);
+                }
+            });
+            this.isAscending = !this.isAscending; // Toggle the sorting order
+            document.getElementById('paging').innerHTML = "";
+            this.renderPagination(1);
+            this.drawTable(1);
+        });
+        th.style.cursor = 'pointer';
         tr.appendChild(th)
 
         th = document.createElement('th')
         th.innerText = '수량'
+        th.id = 'item-list-header-count'
         tr.appendChild(th)
 
         th = document.createElement('th')
         th.innerText = '가격'
+        th.id = 'item-list-header-price'
+
+        th.addEventListener('click', () => {
+            this.data.sort((a, b) => {
+                if (this.isAscending) {
+                    return b.auction_price_per_unit - a.auction_price_per_unit;
+                } else {
+                    return a.auction_price_per_unit - b.auction_price_per_unit;
+                }
+            });
+            this.isAscending = !this.isAscending; // Toggle the sorting order
+            document.getElementById('paging').innerHTML = "";
+            this.renderPagination(1);
+            this.drawTable(1);
+        });
+        th.style.cursor='pointer';
         tr.appendChild(th)
 
         let tbody = document.createElement('tbody')
@@ -273,6 +308,44 @@ export class Pagination {
                         detail_item_option_content.innerText = "남은 거래 가능 횟수 : " + item_option[i]['option_value'];
                         detail_item_option.appendChild(detail_item_option_content)
                     }
+                    if(item_option[i]['option_type'] == '에코스톤 등급'){
+                        detail_item_option_content = document.createElement('div')
+                        detail_item_option_content.classList.add('item-option-content')
+                        detail_item_option_content.innerText = + item_option[i]['option_value']+' 등급';
+                        let $detail_item_option_content = $(detail_item_option_content)
+                        $detail_item_option_content.css('color', '#FCB449')
+                        detail_item_option.appendChild(detail_item_option_content)
+                    }if(item_option[i]['option_type'] == '에코스톤 고유 능력'){
+                        detail_item_option_content = document.createElement('div')
+                        detail_item_option_content.classList.add('item-option-content')
+                        let detail_item_optoin_content_ex = document.createElement('div')
+                        detail_item_optoin_content_ex.innerText = '고유 능력'
+                        let detail_item_option_content_ex2 = document.createElement('div')
+                        detail_item_option_content_ex2.innerText = item_option[i]['option_sub_type']+' '+item_option[i]['option_value']+' 증가'
+                        let $detail_item_option_content_ex2 = $(detail_item_option_content_ex2)
+                        $detail_item_option_content_ex2.css('color', '#0098FD')
+
+                        detail_item_option_content.appendChild(detail_item_optoin_content_ex)
+                        detail_item_option_content.appendChild(detail_item_option_content_ex2)
+
+                        detail_item_option.appendChild(detail_item_option_content)
+                    }
+                    if(item_option[i]['option_type'] == '에코스톤 각성 능력'){
+                        detail_item_option_content = document.createElement('div')
+                        detail_item_option_content.classList.add('item-option-content')
+                        let detail_item_optoin_content_ex = document.createElement('div')
+                        detail_item_optoin_content_ex.innerText = '각성 능력'
+                        let detail_item_option_content_ex2 = document.createElement('div')
+                        detail_item_option_content_ex2.innerText = item_option[i]['option_value']
+                        let $detail_item_option_content_ex2 = $(detail_item_option_content_ex2)
+                        $detail_item_option_content_ex2.css('color', '#0098FD')
+
+                        detail_item_option_content.appendChild(detail_item_optoin_content_ex)
+                        detail_item_option_content.appendChild(detail_item_option_content_ex2)
+
+                        detail_item_option.appendChild(detail_item_option_content)
+                    }
+
 
 
                 }
@@ -634,60 +707,113 @@ export class Pagination {
             td.appendChild(btn)
             tr.appendChild(td)
 
-            td = document.createElement('td')
-            td.classList.add('item-list-time')
-            td.innerText = parseTime(item['date_auction_expire'])
-            td.style.width='120px'
+            td = this.drawTableTime(item)
             tr.appendChild(td)
 
-            td = document.createElement('td')
-            td.classList.add('item-list-count')
-            td.innerText = item['item_count']
-            td.style.width='30px'
+            td = this.drawTableCount(item)
             tr.appendChild(td)
 
-            td = document.createElement('td')
-            td.classList.add('item-list-price')
-            let span = document.createElement('span')
-            span.innerText = "개당: "+parsePrice(item['auction_price_per_unit'])
-            span.classList.add('item-list-price-per-unit')
-
-            if(item['auction_price_per_unit'] >= 100000000){
-                span.style.color = '#e88d90';
-                // span.style.fontWeight = 'bold';
-                span.style.textShadow = '0 0 5px #9b3e42';
-            } else if(item['auction_price_per_unit'] >= 10000){
-                span.style.color = '#94c1dd';
-                // span.style.fontWeight = 'bold';
-                span.style.textShadow = '0 0 5px #69889C';
-            }
-
-            td.appendChild(span)
-            span = document.createElement('span')
-            span.innerText = "전체: "+parsePrice(item['auction_price_per_unit'] * item['item_count'])
-            span.classList.add('item-list-price-total')
-            if(item['auction_price_per_unit'] * item['item_count'] >= 100000000) {
-                span.style.color = '#e88d90';
-                // span.style.fontWeight = 'bold';
-                span.style.textShadow = '0 0 5px #9b3e42';
-            } else if(item['auction_price_per_unit'] * item['item_count'] >= 10000){
-                span.style.color = '#94c1dd';
-                // span.style.fontWeight = 'bold';
-                span.style.textShadow = '0 0 5px #69889C';
-            }
-            td.style.width='250px'
-            td.style.cursor='pointer'
-            td.addEventListener('click', function(){
-                window.open('sales/'+item['item_name'])
-            })
-            td.appendChild(span)
-            span.style.display = 'block'
+            td = this.drawTablePrice(item)
             tr.appendChild(td)
 
         }
     }
     drawTablePrice(item){
+        let td = document.createElement('td')
+        td.classList.add('item-list-price')
+        let span = document.createElement('span')
+        span.innerText = "개당: "+this.parsePrice(item['auction_price_per_unit'])
+        span.classList.add('item-list-price-per-unit')
 
+        if(item['auction_price_per_unit'] >= 100000000){
+            span.style.color = '#e88d90';
+            // span.style.fontWeight = 'bold';
+            span.style.textShadow = '0 0 5px #9b3e42';
+        } else if(item['auction_price_per_unit'] >= 10000){
+            span.style.color = '#94c1dd';
+            // span.style.fontWeight = 'bold';
+            span.style.textShadow = '0 0 5px #69889C';
+        }
+
+        td.appendChild(span)
+        span = document.createElement('span')
+        span.innerText = "전체: "+this.parsePrice(item['auction_price_per_unit'] * item['item_count'])
+        span.classList.add('item-list-price-total')
+        if(item['auction_price_per_unit'] * item['item_count'] >= 100000000) {
+            span.style.color = '#e88d90';
+            // span.style.fontWeight = 'bold';
+            span.style.textShadow = '0 0 5px #9b3e42';
+        } else if(item['auction_price_per_unit'] * item['item_count'] >= 10000){
+            span.style.color = '#94c1dd';
+            // span.style.fontWeight = 'bold';
+            span.style.textShadow = '0 0 5px #69889C';
+        }
+        td.style.width='250px'
+        td.style.cursor='pointer'
+        td.addEventListener('click', function(){
+            window.open('sales/'+item['item_name'])
+        })
+        td.appendChild(span)
+        span.style.display = 'block'
+
+        return td
+    }
+    drawTableTime(item){
+        let td = document.createElement('td')
+        td.classList.add('item-list-time')
+        td.innerText = this.parseTime(item['date_auction_expire'])
+        td.style.width='120px'
+        return td
+    }
+    drawTableCount(item){
+        let td = document.createElement('td')
+        td.classList.add('item-list-count')
+        td.innerText = item['item_count']
+        td.style.width='30px'
+        return td
+    }
+    parsePrice(price) {
+        let priceStr = price.toString();
+        let priceLen = priceStr.length;
+
+        if (priceLen <= 4) {
+            return priceStr +" Gold";
+        }
+
+        let parsedPrice = "";
+        let units = ["", "만", "억"];
+        let unitIndex = 0;
+
+        if (priceLen <= 4){ units = [""]; }
+        else if (priceLen <= 8){ units = ["만", ""];}
+        else if (priceLen <= 12){ units = ["억", "만", ""];}
+
+        while (priceLen > 0) {
+            let chunkSize = priceLen % 4 === 0 ? 4 : priceLen % 4;
+            let chunk = priceStr.slice(0, chunkSize);
+            priceStr = priceStr.slice(chunkSize);
+            priceLen -= chunkSize;
+
+            if (chunk !== "0000") {
+                chunk = chunk.replace(/^0+/, "");
+                parsedPrice = parsedPrice + "" + chunk + units[unitIndex];
+            }
+            unitIndex++;
+        }
+
+        return parsedPrice + " Gold";
+    }
+
+    parseTime(time){
+        let date = new Date;
+        let timeDate = new Date(time);
+        let diff = timeDate - date
+        if(diff < 0) return "만료"
+        let diffSec = diff / 1000;
+        let diffMin = diffSec / 60;
+        let diffHour = Math.ceil(diffMin / 60);
+
+        return diffHour + ' 시간'
     }
 }
 
@@ -794,49 +920,7 @@ function getItemDetailInfo() {
     return itemInfos
 }
 
-function parsePrice(price) {
-    let priceStr = price.toString();
-    let priceLen = priceStr.length;
 
-    if (priceLen <= 4) {
-        return priceStr +" Gold";
-    }
-
-    let parsedPrice = "";
-    let units = ["", "만", "억"];
-    let unitIndex = 0;
-
-    if (priceLen <= 4){ units = [""]; }
-    else if (priceLen <= 8){ units = ["만", ""];}
-    else if (priceLen <= 12){ units = ["억", "만", ""];}
-
-    while (priceLen > 0) {
-        let chunkSize = priceLen % 4 === 0 ? 4 : priceLen % 4;
-        let chunk = priceStr.slice(0, chunkSize);
-        priceStr = priceStr.slice(chunkSize);
-        priceLen -= chunkSize;
-
-        if (chunk !== "0000") {
-            chunk = chunk.replace(/^0+/, "");
-            parsedPrice = parsedPrice + "" + chunk + units[unitIndex];
-        }
-        unitIndex++;
-    }
-
-    return parsedPrice + " Gold";
-}
-
-function parseTime(time){
-    let date = new Date;
-    let timeDate = new Date(time);
-    let diff = timeDate - date
-    if(diff < 0) return "만료"
-    let diffSec = diff / 1000;
-    let diffMin = diffSec / 60;
-    let diffHour = Math.ceil(diffMin / 60);
-
-    return diffHour+' 시간'
-}
 
 //////////////////////
 
