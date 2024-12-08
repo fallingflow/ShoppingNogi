@@ -57,16 +57,45 @@ async function fetchAndStoreAuctionHistory(category) {
         const connection = await mysql.createConnection(dbConfig);
 
         // item_option의 row수를 확인하고 10만개를 넘어가면 데이터베이스 초기화
-        const [rowCount] = await connection.execute('SELECT COUNT(*) AS count FROM item_option');
-        if (rowCount[0].count > 100000) {
-            // If the row count exceeds 100000, reset the database
-            await connection.execute('DELETE FROM item_option');
-            await connection.execute('DELETE FROM auction_history_desc');
-            await connection.execute('DELETE FROM auction_history');
-            await connection.execute('DELETE FROM item');
-            await connection.execute('DELETE FROM category');
-            console.log('Database reset due to item_option row count exceeding 100000');
-        }
+        // const [rowCount] = await connection.execute('SELECT COUNT(*) AS count FROM item_option');
+        // if (rowCount[0].count > 100000) {
+        //     // If the row count exceeds 100000, reset the database
+        //     await connection.execute('DELETE FROM item_option');
+        //     await connection.execute('DELETE FROM auction_history_desc');
+        //     await connection.execute('DELETE FROM auction_history');
+        //     await connection.execute('DELETE FROM item');
+        //     await connection.execute('DELETE FROM category');
+        //     console.log('Database reset due to item_option row count exceeding 100000');
+        // }
+
+        // 현재로부터 1일 내의 데이터만 유지
+        const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().slice(0, 19).replace('T', ' ');
+
+        await connection.execute(`
+            DELETE item_option FROM item_option
+            JOIN item ON item_option.item_id = item.item_id
+            JOIN auction_history_desc ON item.item_id = auction_history_desc.item_id
+            JOIN auction_history ON auction_history_desc.auction_buy_id = auction_history.auction_buy_id
+            WHERE auction_history.date_auction_buy < ?
+        `, [oneDayAgo]);
+
+        await connection.execute(`
+            DELETE auction_history_desc FROM auction_history_desc
+            JOIN auction_history ON auction_history_desc.auction_buy_id = auction_history.auction_buy_id
+            WHERE auction_history.date_auction_buy < ?
+        `, [oneDayAgo]);
+
+        await connection.execute(`
+            DELETE item FROM item
+            JOIN auction_history_desc ON item.item_id = auction_history_desc.item_id
+            JOIN auction_history ON auction_history_desc.auction_buy_id = auction_history.auction_buy_id
+            WHERE auction_history.date_auction_buy < ?
+        `, [oneDayAgo]);
+
+        await connection.execute(`
+            DELETE FROM auction_history
+            WHERE date_auction_buy < ?
+        `, [oneDayAgo]);
 
         // Fetch data from the API (no parameters needed)
         const response = await axios.get('https://open.api.nexon.com/mabinogi/v1/auction/history?auction_item_category='+category, {
