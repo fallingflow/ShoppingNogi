@@ -15,11 +15,11 @@ ShoppingNogi는 (주)넥슨에서 2003년부터 서비스되고 있는 MMORPG �
 2. 표의 맨 위 '시간'과 '가격'을 누르면 내림차순 혹은 오름차순으로 데이터를 정렬하여 볼 수 있습니다.
     ![정렬 메뉴](https://i.postimg.cc/Wb02jvHk/img-01.png)
     - 초기 정렬 방법은 경매장에 등록된 아이템 순입니다. 가장 최근에 등록되었을수록 가장 앞에 출력되고, 가장 나중에 등록되었을수록 가장 뒤에 출력됩니다.
-3. 아이템명을 클릭 시 해당 아이템의 속성이 툴팁 형태로 표시됩니다. 표시 형태는 인게임 UI에 최대한 가깝도록 구현되었습니다.
+3. 아이템명을 클릭 시 해당 아이템의 속성이 툴팁 형태로 표시됩니다. 표시 형태는 인게임 UI에 최대한 가깝도록 구현되었습니다.  
     ![툴팁 예시](https://i.postimg.cc/QN0zTnKy/img-02.png)
 
 # Road to Development (Notion Blog)
-![강아지](https://i.postimg.cc/brLb6B2C/img-03.png)
+![강아지](https://i.postimg.cc/brLb6B2C/img-03.png)  
 [2024 2nd Semester Term Project “ShoppingNogi”](https://spicy-juniper-8d2.notion.site/2024-2nd-Semester-Term-Project-ShoppingNogi-14822f5338c38052a9a7d167907dcbf9)
 
 # Libraries, Frameworks
