@@ -18,6 +18,9 @@ ShoppingNogi는 (주)넥슨에서 2003년부터 서비스되고 있는 MMORPG �
 3. 아이템명을 클릭 시 해당 아이템의 속성이 툴팁 형태로 표시됩니다. 표시 형태는 인게임 UI에 최대한 가깝도록 구현되었습니다.
    ![툴팁 예시](https://i.postimg.cc/QN0zTnKy/img-02.png)
 
+# Road to Development (Notion Blog)
+[2024 2nd Semester Term Project “ShoppingNogi”](https://spicy-juniper-8d2.notion.site/2024-2nd-Semester-Term-Project-ShoppingNogi-14822f5338c38052a9a7d167907dcbf9)
+
 # Libraries, Frameworks
 - node.js
 - express
@@ -27,4 +30,4 @@ ShoppingNogi는 (주)넥슨에서 2003년부터 서비스되고 있는 MMORPG �
 - jquery
 
 # Licence
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License
