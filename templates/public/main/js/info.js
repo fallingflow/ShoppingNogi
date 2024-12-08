@@ -92,6 +92,7 @@ export class Pagination {
 
     drawTable(n){
         let table = document.getElementById('item-list')
+        table.style.display='table';
         table.innerHTML = ""
 
         let thead = document.createElement('thead')
@@ -925,6 +926,7 @@ function getItemDetailInfo() {
 //////////////////////
 
 export function searchItemList(word, URL, APIKEY){
+    items = []
     getDataByName(word, URL, APIKEY)
 
 }

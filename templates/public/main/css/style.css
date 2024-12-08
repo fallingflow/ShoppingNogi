@@ -162,6 +162,34 @@ html, body {
 
 }
 
+#content-article{
+    color:#fff;
+}
+
+#content-article h2{
+    color: #F09319;
+    margin-top: 30px;
+}
+
+#content-article ol,ul{
+    line-height: 30px;
+}
+
+#content-article img{
+    max-width: 100%;
+    height: auto;
+    margin: 5px 0;
+}
+
+.indent{
+    text-indent: 20px;
+}
+
+#item-list{
+    display:none;
+}
+
+
 #item-list-title-container{
     color: #fff;
     font-size: 20px;

@@ -19,7 +19,7 @@ function changeTheme(){
         $('#container').css('background-color', '#fff')
         $('#content').css('background-color', '#fff')
         $('#content').css('border', '1px solid #ccc')
-
+        $('#content-article').css('color', '#000')
         $('#content th, td').css('border-bottom', '1px solid #ccc')
         $('#item-list').css('color', '#000')
 
@@ -43,6 +43,7 @@ function changeTheme(){
         $('#container').css('background-color', '#000')
         $('#content').css('background-color', '#1c1d1f')
         $('#content').css('border', '1px solid #444')
+        $('#content-article').css('color', '#fff')
 
         $('#content th, td').css('border-bottom', '1px solid #444')
         $('#item-list').css('color', '#fff')

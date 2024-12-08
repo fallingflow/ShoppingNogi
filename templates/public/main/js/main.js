@@ -9,10 +9,13 @@ $(document).ready(function () {
 
 
 
-
+    let items= []
     document.getElementById('inputForm').addEventListener('submit', function (e) {
         e.preventDefault();
-        let items = [] // initialize itmes array
+        const article = document.getElementById('content-article')
+        article.style.display='none'
+
+        items = [] // initialize itmes array
 
         let word = document.getElementById('search').value
         let itemListTitle = document.getElementById('item-list-title')
@@ -20,7 +23,6 @@ $(document).ready(function () {
 
         searchItemList(word, searchItemURL, APIKEY)
 
-        getDataByName(word, URL, APIKEY)
     });
 
 
