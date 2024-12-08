@@ -285,12 +285,12 @@ fieldset{
 
     color: #fff;
     background-color:#2e3033;
-    border: 1px solid #444;
+    border-top: 1px solid #444;
 }
 
 #footer-content{
     width:980px;
     margin: auto;
 
-    background-color:#0dcaf0;
+    text-align:center;
 }
