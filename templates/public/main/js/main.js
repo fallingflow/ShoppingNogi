@@ -6,7 +6,22 @@ let searchItemURL = 'https://open.api.nexon.com/mabinogi/v1/auction/list'
 
 $(document).ready(function () {
 
-    searchItemList(searchItemURL, APIKEY)
+
+
+
+
+    document.getElementById('inputForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        let items = [] // initialize itmes array
+
+        let word = document.getElementById('search').value
+        let itemListTitle = document.getElementById('item-list-title')
+        itemListTitle.innerText = '\"'+word+'\"의 검색 결과'
+
+        searchItemList(word, searchItemURL, APIKEY)
+
+        getDataByName(word, URL, APIKEY)
+    });
 
 
 });

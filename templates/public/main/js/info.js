@@ -924,19 +924,7 @@ function getItemDetailInfo() {
 
 //////////////////////
 
-export function searchItemList(URL, APIKEY){
-    getDataByName('쥬얼러 밸류 글라스', URL, APIKEY)
+export function searchItemList(word, URL, APIKEY){
+    getDataByName(word, URL, APIKEY)
 
-    document.getElementById('inputForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        items = [] // initialize itmes array
-
-
-
-        let word = document.getElementById('search').value
-        let itemListTitle = document.getElementById('item-list-title')
-        itemListTitle.innerText = '\"'+word+'\"의 검색 결과'
-
-        getDataByName(word, URL, APIKEY)
-    });
 }
