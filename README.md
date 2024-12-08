@@ -19,6 +19,7 @@ ShoppingNogi는 (주)넥슨에서 2003년부터 서비스되고 있는 MMORPG �
    ![툴팁 예시](https://i.postimg.cc/QN0zTnKy/img-02.png)
 
 # Road to Development (Notion Blog)
+![강아지](https://i.postimg.cc/brLb6B2C/img-03.png)
 [2024 2nd Semester Term Project “ShoppingNogi”](https://spicy-juniper-8d2.notion.site/2024-2nd-Semester-Term-Project-ShoppingNogi-14822f5338c38052a9a7d167907dcbf9)
 
 # Libraries, Frameworks
