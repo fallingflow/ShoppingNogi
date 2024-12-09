@@ -6,6 +6,7 @@
     <script src="/lib/js/jquery-3.7.1.min.js"></script>
     <script src="/lib/js/popper.min.js"></script>
     <script src="/lib/js/bootstrap.js"></script>
+    <script src="/lib/js/chart.js"></script>
     <script type="module" src="/main/js/info.js"></script>
     <script type="module" src="/main/js/sales.js"></script>
     <script src="/main/js/theme.js"></script>
@@ -64,6 +65,10 @@
     <div id="content">
         <div id="item-list-title-container">
             <span id="item-list-title">검색 결과</span>
+        </div>
+        <!-- result chart -->
+        <div id="item-list-chart">
+            <canvas id="chart"></canvas>
         </div>
         <!-- result table -->
         <table id="item-list">

@@ -73,6 +73,8 @@ function getSalesDataByName(){
         success: function(res){
             console.log(res)
 
+            drawChart(res)
+
             let pagination = new SalesPagination(res, 20);
             pagination.renderPagination(1);
             pagination.drawTable(1);
@@ -80,23 +82,65 @@ function getSalesDataByName(){
     })
 }
 
-function getItemSaleDetailInfo(itemsArray){
-    let itemInfos = []
-    itemsArray.forEach(i => {
-        i.forEach(item => {
-            itemInfos.push({
-                "auction_buy_id": item['auction_buy_id'],
-                "auction_price_per_unit": item['auction_price_per_unit'],
-                "date_auction_buy": item['date_auction_buy'],
-                "item_count": item['item_count'],
-                "item_display_name": item['item_display_name'],
-                "item_name": item['item_name'],
-                "item_option": item['item_option']
-            })
-        })
-    })
-    return itemInfos
+function drawChart(res){
+    if(res.length == 0){
+        document.getElementById('item-list-chart').style.display = 'none'
+        let message = document.createElement('div')
+        message.innerText = '해당 아이템의 최근 1일 내 판매 기록이 없습니다.'
+        message.style.color = '#fff'
+        message.style.margin = '0 auto';
+        message.style.textAlign = 'center';
+        message.style.width = '100%';
+        document.getElementById('content').appendChild(message)
+    }
+
+    // date_auction_buy와 auction_price_per_unit 데이터를 추출
+    const labels = res.map(item => {
+        let date = new Date(item.date_auction_buy);
+        return `${date.getHours()}시 ${date.getMinutes()}분`;
+    }).reverse();
+    const data = res.map(item => item.auction_price_per_unit).reverse();
+
+    // 데이터의 최소값과 최대값을 계산
+    const minValue = Math.min(...data);
+    const maxValue = Math.max(...data);
+    const padding = (maxValue - minValue) * 0.2; // 여백을 위해 10% 패딩 추가
+    let bottom
+    if (minValue - padding < 0) bottom = 0;
+    else bottom = minValue - padding;
+    let top = maxValue + padding;
+
+    let ctx = document.getElementById('chart').getContext('2d');
+    let chart = new Chart(ctx, {
+        type: 'line',
+        fill: 'false',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '가격',
+                backgroundColor: '#FF6A00',
+                borderColor: '#FF6A00',
+                data: data,
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    min: bottom,
+                    max: top,
+                    beginAtZero: false
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
 }
+
+
 
 
 
