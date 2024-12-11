@@ -8,11 +8,11 @@ const port = 8080;
 app.use(express.static('templates/public'));
 
 const dbConfig = {
-    // host: 'database-1.cxcoqs8g05ik.us-east-2.rds.amazonaws.com',
-    host: 'localhost',
+    host: 'database-1.cxcoqs8g05ik.us-east-2.rds.amazonaws.com',
+    // host: 'localhost',
     port: 3306,
-    // user: 'admin',
-    user: 'root',
+    user: 'admin',
+    // user: 'root',
     password: 'wkddbwls97912',
     database: 'ShoppingNogi'
 };

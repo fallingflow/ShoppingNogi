@@ -14,8 +14,6 @@ function changeTheme(){
         $('#navigator').css('color', '#000')
         $('#navigator').css('border', '1px solid #ccc')
 
-        // TODO: 라이트 화면일 때 hover 효과 색상 변경
-
         $('#container').css('background-color', '#fff')
         $('#content').css('background-color', '#fff')
         $('#content').css('border', '1px solid #ccc')
@@ -39,6 +37,8 @@ function changeTheme(){
         $('#navigator').css('background-color', '#1c1d1f')
         $('#navigator').css('color', '#fff')
         $('#navigator').css('border', '1px solid #444')
+
+        $('.category-tooltip').css('background-color', '#333')
 
         $('#container').css('background-color', '#000')
         $('#content').css('background-color', '#1c1d1f')

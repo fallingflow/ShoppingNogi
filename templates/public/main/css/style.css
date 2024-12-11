@@ -61,7 +61,7 @@ html, body {
 
 /* Navigator */
 #navigator{
-    width: 170px;
+    width: 180px;
 
     display:flex;
     flex-direction: column;
@@ -84,6 +84,30 @@ html, body {
     flex-direction: column;
 }
 
+#navigator-category{
+    margin: 5px;
+    line-height: 1.5rem;
+    font-size: 12px;
+}
+
+.navigator-category-upper{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.category-tooltip {
+    position: fixed;
+    background-color: #F09319;
+    color: #000;
+    padding: 5px;
+    border-radius: 5px;
+    display: none;
+    z-index: 1000;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
 #navigator-bottom{
     position: relative;
     bottom: 5px;
@@ -94,7 +118,6 @@ html, body {
 .navigator-submenu{
     display: flex;
     align-items: center;
-    width: 160px;
     height: 40px;
     text-align: left;
 

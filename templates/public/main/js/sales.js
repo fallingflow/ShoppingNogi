@@ -104,7 +104,7 @@ function drawChart(res){
     // 데이터의 최소값과 최대값을 계산
     const minValue = Math.min(...data);
     const maxValue = Math.max(...data);
-    const padding = (maxValue - minValue) * 0.2; // 여백을 위해 10% 패딩 추가
+    const padding = (maxValue - minValue) * 0.2;
     let bottom
     if (minValue - padding < 0) bottom = 0;
     else bottom = minValue - padding;

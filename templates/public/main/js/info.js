@@ -539,8 +539,6 @@ export class Pagination {
                             isRefineAvailable = true
                         }
 
-
-
                         item_option_refine_rank.innerText = item_option[i]['option_value'] + ' 랭크'
                         let $item_option_refine_rank = $(item_option_refine_rank)
                         if (item_option[i]['option_value'] == 1) {
@@ -837,9 +835,11 @@ function getDataByCategory(category, address, apikey, cursor = null, paging = 0)
                 paging++
                 getDataByCategory(category, address, apikey, res['next_cursor'], paging)
             }else{
-                let infos = getItemDetailInfo();
+                let infos = getItemDetailInfo(items);
 
                 console.log(infos)
+
+                document.getElementById('paging').innerHTML = ""
 
                 let pagination = new Pagination(infos, 20);
                 pagination.renderPagination(1);
@@ -887,23 +887,6 @@ function getDataByName(name, address, apikey, cursor = null, paging=0){
     });
 }
 
-
-async function getSampleData(){
-    try{
-        const response = await fetch('data/items2.json');
-
-        if(!response.ok){
-            throw new Error('Network response was not ok');
-        }
-        const jsonData = await response.json();
-        const dataArray = Array.isArray(jsonData) ? jsonData : Object.values(jsonData);
-        return dataArray
-    } catch (error){
-        console.error("Error fetching JSON:", error);
-        throw [];
-    }
-}
-
 function getItemDetailInfo() {
     let itemInfos = []
     items.forEach(i => {
@@ -923,10 +906,21 @@ function getItemDetailInfo() {
 
 
 
+
+
 //////////////////////
 
-export function searchItemList(word, URL, APIKEY){
+export function searchItemList(word, type, URL, APIKEY){
     items = []
-    getDataByName(word, URL, APIKEY)
+
+    switch(type){
+        case 'category':
+            getDataByCategory(word, URL, APIKEY)
+            break;
+        case 'name':
+            getDataByName(word, URL, APIKEY)
+            break;
+    }
+
 
 }
