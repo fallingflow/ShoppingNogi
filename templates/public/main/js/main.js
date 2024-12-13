@@ -4,6 +4,7 @@ let APIKEY = "test_3aea5b595556584ab54c0245a7e2a9ea6147d1642ba5988c6308cf189a253
 let searchItemURL = 'https://open.api.nexon.com/mabinogi/v1/auction/list'
 
 
+
 function createCategoryTooltip(element) {
     let tooltip = document.createElement('div')
     console.log(element)
@@ -11,7 +12,22 @@ function createCategoryTooltip(element) {
     return tooltip
 }
 
+function updateNavPosition(){
+    const nav = document.getElementById('navigator')
+    const windowWidth = window.innerWidth;
+    const navWidth = nav.offsetWidth;
+    const centerPosition = (windowWidth - navWidth) / 2;
+    const newPositionX = centerPosition - 480;
+
+    if(newPositionX < 30) nav.style.left = '30px';
+    else nav.style.left = `${newPositionX}px`;
+}
+
 $(document).ready(function () {
+    window.addEventListener('resize', updateNavPosition);
+    window.addEventListener('load', updateNavPosition);
+
+
 
     let items= []
     document.getElementById('inputForm').addEventListener('submit', function (e) {
