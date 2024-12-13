@@ -5,6 +5,8 @@ function changeTheme(){
     if (themeText == '밝은 모드로'){
         theme.innerText = '다크 모드로'
 
+        $('html, body').css('background-color', '#fff')
+
         $('#header').css('background', 'linear-gradient(90deg, #F09319, #ABBA7C)')
         $('#header').css('background-color', '')
 
@@ -29,6 +31,8 @@ function changeTheme(){
     }
     else{
         theme.innerText = '밝은 모드로'
+
+        $('html, body').css('background-color', '#000')
 
         $('#header').css('background-color', '#2e3033')
         $('#header').css('background', '')

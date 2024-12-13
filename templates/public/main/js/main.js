@@ -4,14 +4,6 @@ let APIKEY = "test_3aea5b595556584ab54c0245a7e2a9ea6147d1642ba5988c6308cf189a253
 let searchItemURL = 'https://open.api.nexon.com/mabinogi/v1/auction/list'
 
 
-
-function createCategoryTooltip(element) {
-    let tooltip = document.createElement('div')
-    console.log(element)
-
-    return tooltip
-}
-
 function updateNavPosition(){
     const nav = document.getElementById('navigator')
     const windowWidth = window.innerWidth;
@@ -23,10 +15,23 @@ function updateNavPosition(){
     else nav.style.left = `${newPositionX}px`;
 }
 
+function updateTooltipPosition(){
+    const tooltip = document.getElementsByClassName('category-tooltip')[0];
+    const windowWidth = window.innerWidth;
+    const tooltipWidth = tooltip.offsetWidth;
+    const centerPosition = (windowWidth - tooltipWidth) / 2;
+    const newPositionX = centerPosition - 330;
+
+    if(newPositionX < 30) tooltip.style.left = '30px';
+    else tooltip.style.left = `${newPositionX}px`;
+}
+
 $(document).ready(function () {
     window.addEventListener('resize', updateNavPosition);
     window.addEventListener('load', updateNavPosition);
 
+    window.addEventListener('resize', updateTooltipPosition);
+    window.addEventListener('load', updateTooltipPosition);
 
 
     let items= []
@@ -97,16 +102,22 @@ $(document).ready(function () {
             tooltipWrapper.style.paddingRight = '1.5rem';
             tooltipWrapper.style.paddingLeft = '1.5rem';
             tooltipWrapper.style.marginBottom = '5px';
+            tooltipWrapper.style.listStyle = 'none';
             tooltip.appendChild(tooltipWrapper);
 
             // tooltip.innerText = event.target.innerText;
             document.body.appendChild(tooltip);
+            const windowWidth = window.innerWidth;
+            const tooltipWidth = tooltip.offsetWidth;
+            const centerPosition = (windowWidth - tooltipWidth) / 2;
+            const newPositionX = centerPosition - 380;
 
-            tooltip.style.left = element.offsetLeft + element.offsetWidth + 45 + 'px';
-            tooltip.style.top = element.offsetTop + 70+ 'px';
+            if(newPositionX < 30) tooltip.style.left = '30px';
+            else tooltip.style.left = `${newPositionX}px`;
+
+            tooltip.style.top = `${element.offsetTop+70}px`;
             tooltip.style.display = 'block';
 
-            tooltipWrapper.style.listStyle = 'none';
 
             function hideTooltip(event) {
                 if (!tooltip.contains(event.target) && event.target !== element) {

@@ -33,6 +33,11 @@ html, body {
     background-color:#2e3033;
 }
 
+#header-container{
+    width:1200px;
+    margin: auto;
+}
+
 #header svg{
     padding-bottom: 2px;
 }
@@ -86,13 +91,19 @@ html, body {
 
 #navigator-category{
     margin: 5px;
-    line-height: 1.5rem;
+    line-height: 2rem;
     font-size: 12px;
 }
 
 .navigator-category-upper{
     cursor: pointer;
     font-weight: bold;
+    padding-left: 5px;
+}
+
+.navigator-category-upper:hover{
+    background-color: #444;
+    border-radius: 5px;
 }
 
 .category-tooltip {
@@ -100,12 +111,13 @@ html, body {
     background-color: #F09319;
     color: #000;
     padding: 5px;
-    border-radius: 5px;
     display: none;
     z-index: 1000;
     font-size: 12px;
     cursor: pointer;
     font-weight: bold;
+
+    animation-name: slideIn;
 }
 
 #navigator-bottom{
@@ -157,8 +169,11 @@ html, body {
 
 /* container */
 #container{
-    width: 100%;
+    width: 1200px;
     display: flex;
+
+
+    margin: auto;
 
     margin-top: 40px;
     background-color: #000;
@@ -174,7 +189,7 @@ html, body {
     height: 100%;
     width: 980px;
 
-    margin: 30px auto;
+    margin: 30px 0 0 250px;
     padding: 40px;
 
     border-radius: 5px;
