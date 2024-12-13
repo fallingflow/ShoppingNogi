@@ -12,11 +12,11 @@ class SalesPagination extends Pagination {
         if(item['auction_price_per_unit'] >= 100000000){
             span.style.color = '#e88d90';
             // span.style.fontWeight = 'bold';
-            span.style.textShadow = '0 0 5px #9b3e42';
+            span.style.textShadow = '0 0 2px #9b3e42';
         } else if(item['auction_price_per_unit'] >= 10000){
             span.style.color = '#94c1dd';
             // span.style.fontWeight = 'bold';
-            span.style.textShadow = '0 0 5px #69889C';
+            span.style.textShadow = '0 0 2px #69889C';
         }
 
         td.appendChild(span)
@@ -26,11 +26,11 @@ class SalesPagination extends Pagination {
         if(item['auction_price_per_unit'] * item['item_count'] >= 100000000) {
             span.style.color = '#e88d90';
             // span.style.fontWeight = 'bold';
-            span.style.textShadow = '0 0 5px #9b3e42';
+            span.style.textShadow = '0 0 2px #9b3e42';
         } else if(item['auction_price_per_unit'] * item['item_count'] >= 10000){
             span.style.color = '#94c1dd';
             // span.style.fontWeight = 'bold';
-            span.style.textShadow = '0 0 5px #69889C';
+            span.style.textShadow = '0 0 2px #69889C';
         }
         td.style.width='250px'
         td.appendChild(span)
@@ -149,14 +149,10 @@ $(document).ready(function(){
     getSalesDataByName('쥬얼러 밸류 글라스')
 
 
-    let nav = document.getElementById('navigator')
-    nav.style.display = 'none'
+    // let nav = document.getElementById('navigator')
+    // nav.style.display = 'none'
 
-    let word = window.location.pathname;
-    word = word.replace('/sales/', '')
-    word = decodeURIComponent(word);
-    let itemListTitle = document.getElementById('item-list-title')
-    itemListTitle.innerText = '\"'+word+'\"의 최근 판매 기록'
+
 
     document.getElementById('inputForm').addEventListener('submit', function (e) {
         e.preventDefault();
