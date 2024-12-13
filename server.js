@@ -1,9 +1,16 @@
-
 const express = require('express'); // 라이브러리 첨부
 const axios = require('axios');
 const mysql = require('mysql2/promise');
+const cors = require('cors');
+
+const corsOptions = {
+    // origin: "https://fallingflow.github.io/ShoppingNogi-web/"
+    origin: "*"
+}
 
 const app = express(); // 라이브러리 객체 생성
+app.use(cors(corsOptions));
+
 const port = 8080;
 app.use(express.static('templates/public'));
 
@@ -32,19 +39,6 @@ app.get('/', function(req, res){
 async function fetchAndStoreAuctionHistory(category) {
     try {
         const connection = await mysql.createConnection(dbConfig);
-
-        // item_option의 row수를 확인하고 10만개를 넘어가면 데이터베이스 초기화
-        // const [rowCount] = await connection.execute('SELECT COUNT(*) AS count FROM item_option');
-        // if (rowCount[0].count > 100000) {
-        //     // If the row count exceeds 100000, reset the database
-        //     await connection.execute('DELETE FROM item_option');
-        //     await connection.execute('DELETE FROM auction_history_desc');
-        //     await connection.execute('DELETE FROM auction_history');
-        //     await connection.execute('DELETE FROM item');
-        //     await connection.execute('DELETE FROM category');
-        //     console.log('Database reset due to item_option row count exceeding 100000');
-        // }
-
         // 현재로부터 1일 내의 데이터만 유지
         const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().slice(0, 19).replace('T', ' ');
 
